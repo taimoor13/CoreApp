@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
+import { AlertifyService } from '../_services/alertify.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -9,30 +11,33 @@ import { AuthService } from '../_services/auth.service';
 export class NavComponent implements OnInit {
 
   model : any = {};
-  constructor(private authService:AuthService) { }
+  constructor(public authService:AuthService, private alertifyService : AlertifyService,
+    private router : Router) { }
 
   ngOnInit() {
   }
-
+//Alvis Operation, appending ? in property name make it optional if its defined as required in template.
   login() {
 
-    this.authService.login(this.model).subscribe(next => {
-      console.log("Logged in successfully");
+    this.authService.login(this.model).subscribe(next => {      
+      this.alertifyService.success("Logged in successfully");
     },
     error => {
-      console.log(error);
+      this.alertifyService.error(error);
+    },
+    () => {//this anonomus function is complete function
+      this.router.navigate([('/members')]);
     });
-    //console.log(this.model);
+    
   }
 
   loggedIn(){
-
-    var token = localStorage.getItem('token');
-    return !!token;
+    return this.authService.loggedIn();
   }
 
   logout(){
     localStorage.removeItem('token');
-    console.log('logout');
+    this.alertifyService.message("logged out");
+    this.router.navigate([('/home')]);
   }
 }

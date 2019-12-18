@@ -15,7 +15,7 @@ namespace MyCoreApp.API.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Username = table.Column<string>(nullable: true),
                     PasswordHash = table.Column<byte[]>(nullable: true),
-                    PasswordSalt = table.Column<byte>(nullable: false)
+                    PasswordSalt = table.Column<byte[]>(nullable: false)
                 },
                 constraints: table =>
                 {

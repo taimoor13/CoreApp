@@ -25,7 +25,7 @@ namespace MyCoreApp.API.Migrations
 
                     b.Property<byte[]>("PasswordHash");
 
-                    b.Property<byte>("PasswordSalt");
+                    b.Property<byte[]>("PasswordSalt");
 
                     b.Property<string>("Username");
 

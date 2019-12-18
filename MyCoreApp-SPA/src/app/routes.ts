@@ -1,9 +1,10 @@
 import {Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { MembersListComponent } from './members-list/members-list.component';
+import { MembersListComponent } from './members/members-list/members-list.component';
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { MemberDetailComponent } from './members/members-list/member-detail/member-detail.component';
 
 export const appRoutes : Routes = [
     { path : '' , component: HomeComponent  }, // we will not make it 'home' (not its empty string '') as there would be erorr for localhost:4200 only acess
@@ -13,6 +14,7 @@ export const appRoutes : Routes = [
         canActivate : [AuthGuard],
         children : [
             { path : 'members' , component: MembersListComponent  },
+            { path : 'members/:id' , component: MemberDetailComponent  },/* this is to send the id parametr in request */
             { path : 'lists' , component: ListsComponent  },
             { path : 'messages' , component: MessagesComponent  }
 
